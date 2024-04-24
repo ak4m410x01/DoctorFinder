@@ -3,7 +3,49 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoctorFinder.Domain", "DoctorFinder.Domain\DoctorFinder.Domain.csproj", "{5D30ED6F-430F-41BC-ADC5-70DB261D18CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoctorFinder.Presentation", "DoctorFinder.Presentation\DoctorFinder.Presentation.csproj", "{C6B47407-B2A1-4D40-BE48-AC602D12D269}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoctorFinder.Persistence", "DoctorFinder.Persistence\DoctorFinder.Persistence.csproj", "{3187B603-F9B4-4B43-AB14-03B6DCF9ED39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoctorFinder.Infrastructure", "DoctorFinder.Infrastructure\DoctorFinder.Infrastructure.csproj", "{5D9CB3CA-7338-48E9-AB86-FC1717CDE168}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoctorFinder.Shared", "DoctorFinder.Shared\DoctorFinder.Shared.csproj", "{21D327C5-1C08-4335-8C35-A4D03C2383DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoctorFinder.Application", "DoctorFinder.Application\DoctorFinder.Application.csproj", "{FB09CFE0-0E7F-4EC5-B547-F569F11B80B8}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5D30ED6F-430F-41BC-ADC5-70DB261D18CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D30ED6F-430F-41BC-ADC5-70DB261D18CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D30ED6F-430F-41BC-ADC5-70DB261D18CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D30ED6F-430F-41BC-ADC5-70DB261D18CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6B47407-B2A1-4D40-BE48-AC602D12D269}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6B47407-B2A1-4D40-BE48-AC602D12D269}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6B47407-B2A1-4D40-BE48-AC602D12D269}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6B47407-B2A1-4D40-BE48-AC602D12D269}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3187B603-F9B4-4B43-AB14-03B6DCF9ED39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3187B603-F9B4-4B43-AB14-03B6DCF9ED39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3187B603-F9B4-4B43-AB14-03B6DCF9ED39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3187B603-F9B4-4B43-AB14-03B6DCF9ED39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D9CB3CA-7338-48E9-AB86-FC1717CDE168}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D9CB3CA-7338-48E9-AB86-FC1717CDE168}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D9CB3CA-7338-48E9-AB86-FC1717CDE168}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D9CB3CA-7338-48E9-AB86-FC1717CDE168}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21D327C5-1C08-4335-8C35-A4D03C2383DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21D327C5-1C08-4335-8C35-A4D03C2383DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21D327C5-1C08-4335-8C35-A4D03C2383DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21D327C5-1C08-4335-8C35-A4D03C2383DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB09CFE0-0E7F-4EC5-B547-F569F11B80B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB09CFE0-0E7F-4EC5-B547-F569F11B80B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB09CFE0-0E7F-4EC5-B547-F569F11B80B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB09CFE0-0E7F-4EC5-B547-F569F11B80B8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection

@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Folder Include="Common\Mappings\" />
+		<Folder Include="Common\Exceptions\" />
+		<Folder Include="Contracts\Interfaces\" />
+		<Folder Include="Contracts\Interfaces\Media\" />
+		<Folder Include="Contracts\Interfaces\Authentication\" />
+		<Folder Include="Contracts\Interfaces\UnitOfWork\" />
+		<Folder Include="Contracts\Interfaces\Repositories\" />
+		<Folder Include="Features\" />
+		<Folder Include="Extensions\" />
+		<Folder Include="Contracts\Abstractions\" />
+		<Folder Include="DTOs\" />
+	</ItemGroup>
+
+</Project>
