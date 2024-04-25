@@ -2,6 +2,8 @@
 using DoctorFinder.Domain.Identity;
 using DoctorFinder.Persistence.Contexts;
 using DoctorFinder.Persistence.Extensions;
+using DoctorFinder.Application.Extensions;
+using DoctorFinder.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Identity;
 
 namespace DoctorFinder.Presentation
@@ -15,8 +17,9 @@ namespace DoctorFinder.Presentation
             // Add services to the container.
 
             // Clean Architecture Layers Configuration
-            builder.Services.AddPersistence(builder.Configuration);
-
+            builder.Services.AddApplication()
+                            .AddInfrastructure()
+                            .AddPersistence(builder.Configuration);
 
             // => TODO: Remove this Configuration and Use Persistence Layer
             // Identity Configuration

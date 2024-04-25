@@ -21,6 +21,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\DoctorFinder.Application\DoctorFinder.Application.csproj" />
+		<ProjectReference Include="..\DoctorFinder.Infrastructure\DoctorFinder.Infrastructure.csproj" />
 		<ProjectReference Include="..\DoctorFinder.Persistence\DoctorFinder.Persistence.csproj" />
 	</ItemGroup>
 
