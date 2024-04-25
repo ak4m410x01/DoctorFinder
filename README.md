@@ -4,10 +4,9 @@
 
 Doctor Finder connects patients and doctors for seamless appointments. Patients search for doctors by specialty and location. Availability is based on the doctor's work schedule, ensuring appointments during working hours. Book appointments, manage them easily, and pay online or offline - all within this secure platform.
 
-<!-- 
-  TODO: Set the Application Cover image here.
--->
-
+<div align="center">
+   <img src="./assets/images/cover.jpg" width="100%">
+</div>
 
 ## ⚙ Tools and Technologies used
 
