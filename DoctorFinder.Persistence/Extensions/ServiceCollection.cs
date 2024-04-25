@@ -1,7 +1,10 @@
-﻿using DoctorFinder.Persistence.Contexts;
+﻿using DoctorFinder.Domain.Identity;
+using DoctorFinder.Persistence.Contexts;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
 
 namespace DoctorFinder.Persistence.Extensions
 {
@@ -23,10 +26,15 @@ namespace DoctorFinder.Persistence.Extensions
                         options.UseSqlServer(connectionString, builder =>
                                 builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
+            return services;
+        }
+
+        public static IServiceCollection AddIdentityConfiguration(this IServiceCollection services)
+        {
             // Identity Configuration
-            //services.AddIdentityCore<ApplicationUser, IdentityRole>()
-            //        .AddEntityFrameworkStores<ApplicationDbContext>()
-            //        .AddDefaultTokenProviders();
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                    .AddEntityFrameworkStores<ApplicationDbContext>()
+                    .AddDefaultTokenProviders();
 
             return services;
         }

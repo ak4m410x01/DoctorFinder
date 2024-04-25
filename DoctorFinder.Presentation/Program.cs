@@ -1,10 +1,6 @@
-
-using DoctorFinder.Domain.Identity;
-using DoctorFinder.Persistence.Contexts;
-using DoctorFinder.Persistence.Extensions;
 using DoctorFinder.Application.Extensions;
 using DoctorFinder.Infrastructure.Extensions;
-using Microsoft.AspNetCore.Identity;
+using DoctorFinder.Persistence.Extensions;
 
 namespace DoctorFinder.Presentation
 {
@@ -21,13 +17,9 @@ namespace DoctorFinder.Presentation
                             .AddInfrastructure()
                             .AddPersistence(builder.Configuration);
 
-            // => TODO: Remove this Configuration and Use Persistence Layer
-            // Identity Configuration
-            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-                            .AddEntityFrameworkStores<ApplicationDbContext>()
-                            .AddDefaultTokenProviders();
 
             builder.Services.AddControllers();
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
