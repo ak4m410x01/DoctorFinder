@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DoctorFinder.Persistence.EntityConfigurations.Account
+namespace DoctorFinder.Persistence.EntityConfigurations.Accounts
 {
     public class DoctorConfiguration : IEntityTypeConfiguration<Doctor>
     {
