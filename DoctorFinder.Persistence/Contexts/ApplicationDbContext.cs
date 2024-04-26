@@ -1,4 +1,5 @@
 ﻿using DoctorFinder.Domain.Entities.Accounts;
+using DoctorFinder.Domain.Entities.Appointments;
 using DoctorFinder.Domain.Entities.Medical;
 using DoctorFinder.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
@@ -23,6 +24,9 @@ namespace DoctorFinder.Persistence.Contexts
         public DbSet<Qualification> Qualifications { get; set; }
         public DbSet<DoctorQualifications> DoctorQualifications { get; set; }
 
+        // Appointment Entities
+        public DbSet<WorkSchedule> WorkSchedules { get; set; }
+        public DbSet<Appointment> Appointments { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
