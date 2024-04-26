@@ -1,4 +1,6 @@
-﻿using DoctorFinder.Domain.Identity;
+﻿using DoctorFinder.Domain.Entities.Accounts;
+using DoctorFinder.Domain.Entities.Medical;
+using DoctorFinder.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +11,19 @@ namespace DoctorFinder.Persistence.Contexts
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+
+        // Configure Db Sets
+
+        // Account Entities
+        public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<Patient> Patients { get; set; }
+
+        // Medical Entities
+        public DbSet<Specialization> Specializations { get; set; }
+        public DbSet<Qualification> Qualifications { get; set; }
+        public DbSet<DoctorQualifications> DoctorQualifications { get; set; }
+
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
