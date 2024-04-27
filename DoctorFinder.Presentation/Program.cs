@@ -3,6 +3,7 @@
 using DoctorFinder.Application.Extensions;
 using DoctorFinder.Infrastructure.Extensions;
 using DoctorFinder.Persistence.Extensions;
+using DoctorFinder.Presentation.Extensions.Swagger;
 
 #endregion
 
@@ -31,6 +32,8 @@ namespace DoctorFinder.Presentation
             builder.Services.AddControllers();
 
             #region Configuring Swagger/OpenAPI
+
+            builder.Services.AddSwagger();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
