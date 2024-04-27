@@ -1,6 +1,11 @@
-﻿using DoctorFinder.Domain.Entities.Reviews;
+﻿#region Using Directive Namespaces
+
+using DoctorFinder.Domain.Entities.Reviews;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+#endregion
+
 
 namespace DoctorFinder.Persistence.EntityConfigurations.Reviews
 {
@@ -8,11 +13,20 @@ namespace DoctorFinder.Persistence.EntityConfigurations.Reviews
     {
         public void Configure(EntityTypeBuilder<Review> builder)
         {
+            #region Config Table Name
+
             // Config Table Name for ApplicationUser Entity
             builder.ToTable("Reviews", "Reviews");
 
-            // Config Properties
+            #endregion
+
+            #region Primary Key
+
             builder.HasKey(x => x.Id);
+
+            #endregion
+
+            #region Config Properties
 
             builder.Property(x => x.Stars)
                    .HasConversion<byte>()
@@ -26,7 +40,10 @@ namespace DoctorFinder.Persistence.EntityConfigurations.Reviews
                    .HasDefaultValueSql("GETUTCDATE()")
                    .ValueGeneratedOnAdd();
 
-            // Config Relationship
+            #endregion
+
+            #region Config Relationship
+
             builder.HasOne(x => x.Doctor)
                    .WithMany(y => y.Reviews)
                    .HasForeignKey(x => x.DoctorId)
@@ -39,9 +56,14 @@ namespace DoctorFinder.Persistence.EntityConfigurations.Reviews
                    .IsRequired()
                    .OnDelete(DeleteBehavior.Restrict);
 
-            // Config Index
+            #endregion
+
+            #region Config Constraints
+
             builder.HasIndex(x => new { x.DoctorId, x.PatientId })
                    .IsUnique();
+
+            #endregion
         }
     }
 }

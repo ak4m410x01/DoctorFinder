@@ -1,7 +1,12 @@
-﻿using DoctorFinder.Domain.Enumerations;
+﻿#region Using Directive Namespaces
+
+using DoctorFinder.Domain.Enumerations;
 using DoctorFinder.Domain.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+#endregion
+
 
 namespace DoctorFinder.Persistence.EntityConfigurations.Accounts
 {
@@ -9,12 +14,20 @@ namespace DoctorFinder.Persistence.EntityConfigurations.Accounts
     {
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
+            #region Config Table Name
+
             // Config Table Name for ApplicationUser Entity
             builder.ToTable("Users", "Account");
 
+            #endregion
 
-            // Config Properties
+            #region Config Primary Key
+
             builder.HasKey(x => x.Id);
+
+            #endregion
+
+            #region Config Properties
 
             builder.Property(x => x.Email)
                    .HasMaxLength(256)
@@ -50,6 +63,8 @@ namespace DoctorFinder.Persistence.EntityConfigurations.Accounts
             builder.Property(x => x.Location)
                    .IsRequired(false);
 
+
+
             builder.OwnsOne(x => x.Address, a =>
             {
                 a.Property(x => x.Country).HasMaxLength(100).HasColumnName("Country").IsRequired();
@@ -65,8 +80,14 @@ namespace DoctorFinder.Persistence.EntityConfigurations.Accounts
                    .HasDefaultValueSql("GETUTCDATE()")
                    .ValueGeneratedOnAdd();
 
+            #endregion
+
+            #region Config Inheritance Mapping Strategy
+
             // Config Inheritance as TPC
             builder.UseTptMappingStrategy();
+
+            #endregion
         }
     }
 }

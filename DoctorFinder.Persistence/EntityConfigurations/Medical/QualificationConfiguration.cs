@@ -1,6 +1,11 @@
-﻿using DoctorFinder.Domain.Entities.Medical;
+﻿#region Using Directive Namespaces
+
+using DoctorFinder.Domain.Entities.Medical;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+#endregion
+
 
 namespace DoctorFinder.Persistence.EntityConfigurations.Medical
 {
@@ -8,11 +13,20 @@ namespace DoctorFinder.Persistence.EntityConfigurations.Medical
     {
         public void Configure(EntityTypeBuilder<Qualification> builder)
         {
+            #region Config Table Name
+
             // Config Table Name for Qualification Entity
             builder.ToTable("Qualifications", "Medical");
 
-            // Config Properties
+            #endregion
+
+            #region Primary Key
+
             builder.HasKey(x => x.Id);
+
+            #endregion
+
+            #region Config Properties
 
             builder.Property(x => x.Degree)
                    .HasMaxLength(100)
@@ -33,6 +47,8 @@ namespace DoctorFinder.Persistence.EntityConfigurations.Medical
             builder.Property(x => x.CreatedAt)
                    .HasDefaultValueSql("GETUTCDATE()")
                    .ValueGeneratedOnAdd();
+
+            #endregion
         }
     }
 }

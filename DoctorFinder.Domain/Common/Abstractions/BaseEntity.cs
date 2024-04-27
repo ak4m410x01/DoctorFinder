@@ -2,8 +2,15 @@
 {
     public abstract class BaseEntity
     {
+        #region Properties
+
         public uint Id { get; set; }
         public DateTime CreatedAt { get; }
+
+        #endregion
+
+
+        #region Equals Override
 
         public override bool Equals(object? obj)
         {
@@ -22,19 +29,36 @@
             return Id != default && Id == other.Id;
         }
 
+        #endregion
+
+        #region GetHashCode Override
+
         public override int GetHashCode()
         {
             return Id == default ? base.GetHashCode() : Id.GetHashCode();
         }
+
+        #endregion
+
+
+        #region Operator == Override
+
         public static bool operator ==(BaseEntity obj1, BaseEntity obj2)
         {
             if (obj1 is null)
                 return obj2 is null;
             return obj1.Equals(obj2);
         }
+
+        #endregion
+
+        #region Operator != Override
+
         public static bool operator !=(BaseEntity obj1, BaseEntity obj2)
         {
             return !(obj1 == obj2);
         }
+
+        #endregion
     }
 }

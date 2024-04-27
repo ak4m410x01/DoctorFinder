@@ -1,11 +1,17 @@
-﻿using DoctorFinder.Domain.Enumerations;
+﻿#region Using Directive Namespaces
+
+using DoctorFinder.Domain.Enumerations;
 using DoctorFinder.Domain.ValueObjects;
 using Microsoft.AspNetCore.Identity;
+
+#endregion
 
 namespace DoctorFinder.Domain.Identity
 {
     public class ApplicationUser : IdentityUser
     {
+        #region Properties
+
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
 
@@ -19,5 +25,7 @@ namespace DoctorFinder.Domain.Identity
         public string? Location { get; set; }
 
         public DateTime CreatedAt { get; }
+
+        #endregion
     }
 }

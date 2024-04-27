@@ -1,4 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿#region Using Directive Namespaces
+
+using Microsoft.Extensions.DependencyInjection;
+
+#endregion
+
 
 namespace DoctorFinder.Application.Extensions
 {

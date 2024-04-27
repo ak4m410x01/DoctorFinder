@@ -1,7 +1,12 @@
-﻿using DoctorFinder.Domain.Entities.Appointments;
+﻿#region Using Directive Namespaces
+
+using DoctorFinder.Domain.Entities.Appointments;
 using DoctorFinder.Domain.Enumerations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+#endregion
+
 
 namespace DoctorFinder.Persistence.EntityConfigurations.Appointments
 {
@@ -9,11 +14,20 @@ namespace DoctorFinder.Persistence.EntityConfigurations.Appointments
     {
         public void Configure(EntityTypeBuilder<Appointment> builder)
         {
+            #region Config Table Name
+
             // Config Table Name for Appointment Entity
             builder.ToTable("Appointments", "Appointment");
 
-            // Config Properties
+            #endregion
+
+            #region Config Primary Key
+
             builder.HasKey(x => x.Id);
+
+            #endregion
+
+            #region Config Properties
 
             builder.Property(x => x.Status)
                    .HasConversion<byte>()
@@ -24,22 +38,33 @@ namespace DoctorFinder.Persistence.EntityConfigurations.Appointments
                    .HasDefaultValueSql("GETUTCDATE()")
                    .ValueGeneratedOnAdd();
 
-            // Config Relationship
+            #endregion
+
+
+            #region Config Relationships
+
+            // Appointment => Doctor
             builder.HasOne(x => x.Doctor)
                    .WithMany(y => y.Appointments)
                    .HasForeignKey(x => x.DoctorId)
                    .IsRequired()
                    .OnDelete(DeleteBehavior.Restrict);
 
+            // Appointment => Patient
             builder.HasOne(x => x.Patient)
                    .WithMany(y => y.Appointments)
                    .HasForeignKey(x => x.PatientId)
                    .IsRequired()
                    .OnDelete(DeleteBehavior.Restrict);
 
-            // Config Constraint
+            #endregion
+
+            #region Config Constraints
+
             builder.HasIndex(x => new { x.DoctorId, x.PatientId, x.DateTime })
                    .IsUnique();
+
+            #endregion
         }
     }
 }

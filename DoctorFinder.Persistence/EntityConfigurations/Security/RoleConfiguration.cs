@@ -1,6 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿#region Using Directive Namespaces
+
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+#endregion
+
 
 namespace DoctorFinder.Persistence.EntityConfigurations.Security
 {
@@ -8,8 +13,12 @@ namespace DoctorFinder.Persistence.EntityConfigurations.Security
     {
         public void Configure(EntityTypeBuilder<IdentityRole> builder)
         {
+            #region Config Table Name
+
             // Config Table Name for IdentityRole Entity
             builder.ToTable("Roles", "Security");
+
+            #endregion
         }
     }
 }

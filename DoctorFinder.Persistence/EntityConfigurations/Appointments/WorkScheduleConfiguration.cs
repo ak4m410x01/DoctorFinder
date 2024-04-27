@@ -1,6 +1,11 @@
-﻿using DoctorFinder.Domain.Entities.Appointments;
+﻿#region Using Directive Namespaces
+
+using DoctorFinder.Domain.Entities.Appointments;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+#endregion
+
 
 namespace DoctorFinder.Persistence.EntityConfigurations.Appointments
 {
@@ -8,11 +13,20 @@ namespace DoctorFinder.Persistence.EntityConfigurations.Appointments
     {
         public void Configure(EntityTypeBuilder<WorkSchedule> builder)
         {
+            #region Config Table Name
+
             // Config Table Name for Qualification Entity
             builder.ToTable("WorkSchedules", "Appointment");
 
-            // Config Properties
+            #endregion
+
+            #region Primary Key
+
             builder.HasKey(x => new { x.DoctorId, x.DayOfWeek });
+
+            #endregion
+
+            #region Config Properties
 
             builder.Property(x => x.DayOfWeek)
                    .HasConversion<byte>()
@@ -22,11 +36,16 @@ namespace DoctorFinder.Persistence.EntityConfigurations.Appointments
                    .HasDefaultValueSql("GETUTCDATE()")
                    .ValueGeneratedOnAdd();
 
-            // Config Relationship
+            #endregion
+
+            #region Config Relationship
+
             builder.HasOne(x => x.Doctor)
                    .WithMany(y => y.WorkSchedules)
                    .HasForeignKey(x => x.DoctorId)
                    .IsRequired();
+
+            #endregion
         }
     }
 }

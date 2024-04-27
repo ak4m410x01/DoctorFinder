@@ -1,6 +1,10 @@
+#region Using Directive Namespaces
+
 using DoctorFinder.Application.Extensions;
 using DoctorFinder.Infrastructure.Extensions;
 using DoctorFinder.Persistence.Extensions;
+
+#endregion
 
 namespace DoctorFinder.Presentation
 {
@@ -8,23 +12,39 @@ namespace DoctorFinder.Presentation
     {
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
+            #region Create Web Application Builder
+
+            WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
+
+            #endregion
 
             // Add services to the container.
 
-            // Clean Architecture Layers Configuration
+            #region Clean Architecture Layers Configuration
+
             builder.Services.AddApplication()
                             .AddInfrastructure()
                             .AddPersistence(builder.Configuration);
 
+            #endregion
 
             builder.Services.AddControllers();
+
+            #region Configuring Swagger/OpenAPI
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            var app = builder.Build();
+            #endregion
+
+            #region Create Web Application
+
+            WebApplication? app = builder.Build();
+
+            #endregion
+
+            #region Config Swagger/OpenAPI Pipeline
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -33,12 +53,21 @@ namespace DoctorFinder.Presentation
                 app.UseSwaggerUI();
             }
 
+            #endregion
+
+            #region Config Authentication & Authorization Pipelines
+
             app.UseAuthorization();
 
+            #endregion
 
             app.MapControllers();
 
+            #region Run Web Application
+
             app.Run();
+
+            #endregion
         }
     }
 }

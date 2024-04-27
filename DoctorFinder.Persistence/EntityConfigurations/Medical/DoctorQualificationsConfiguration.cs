@@ -1,6 +1,11 @@
-﻿using DoctorFinder.Domain.Entities.Medical;
+﻿#region Using Directive Namespaces
+
+using DoctorFinder.Domain.Entities.Medical;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+#endregion
+
 
 namespace DoctorFinder.Persistence.EntityConfigurations.Medical
 {
@@ -8,13 +13,21 @@ namespace DoctorFinder.Persistence.EntityConfigurations.Medical
     {
         public void Configure(EntityTypeBuilder<DoctorQualifications> builder)
         {
+            #region Config Table Name
+
             // Config Table Name for Qualification Entity
             builder.ToTable("DoctorQualifications", "Medical");
 
-            // Config Properties
+            #endregion
+
+            #region Primary Key
+
             builder.HasKey(x => new { x.DoctorId, x.QualificationId });
 
-            // Config Relationships
+            #endregion
+
+            #region Config Relationships
+
             builder.HasOne(x => x.Doctor)
                    .WithMany(y => y.Qualifications)
                    .HasForeignKey(x => x.DoctorId)
@@ -24,6 +37,8 @@ namespace DoctorFinder.Persistence.EntityConfigurations.Medical
                    .WithMany(y => y.Doctors)
                    .HasForeignKey(x => x.QualificationId)
                    .IsRequired();
+
+            #endregion
         }
     }
 }
