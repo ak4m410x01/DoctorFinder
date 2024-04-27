@@ -7,7 +7,7 @@ namespace DoctorFinder.Domain.Entities.Medical
         public string DoctorId { get; set; } = default!;
         public Doctor? Doctor { get; set; }
 
-        public int QualificationId { get; set; }
+        public uint QualificationId { get; set; }
         public Qualification? Qualification { get; set; }
     }
 }

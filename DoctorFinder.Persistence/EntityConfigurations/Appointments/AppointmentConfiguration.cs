@@ -16,7 +16,13 @@ namespace DoctorFinder.Persistence.EntityConfigurations.Appointments
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Status)
-                   .HasConversion<ushort>();
+                   .HasConversion<byte>()
+                   .HasDefaultValue(AppointmentStatus.Pending)
+                   .HasSentinel(AppointmentStatus.UnSet);
+
+            builder.Property(x => x.CreatedAt)
+                   .HasDefaultValueSql("GETUTCDATE()")
+                   .ValueGeneratedOnAdd();
 
             // Config Relationship
             builder.HasOne(x => x.Doctor)

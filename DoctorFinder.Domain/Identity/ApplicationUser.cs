@@ -13,11 +13,11 @@ namespace DoctorFinder.Domain.Identity
 
         public DateOnly? BirthDate { get; set; }
 
-        public Gender Gender { get; set; } = Gender.Unspecified;
+        public Gender? Gender { get; set; }
 
         public Address? Address { get; set; }
         public string? Location { get; set; }
 
-        public DateTime CreatedAt { get; } = DateTime.Now;
+        public DateTime CreatedAt { get; }
     }
 }

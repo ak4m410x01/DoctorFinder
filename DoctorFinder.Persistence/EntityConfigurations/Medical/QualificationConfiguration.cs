@@ -29,6 +29,10 @@ namespace DoctorFinder.Persistence.EntityConfigurations.Medical
             builder.Property(x => x.YearsOfExperience)
                    .HasMaxLength(100)
                    .IsRequired();
+
+            builder.Property(x => x.CreatedAt)
+                   .HasDefaultValueSql("GETUTCDATE()")
+                   .ValueGeneratedOnAdd();
         }
     }
 }

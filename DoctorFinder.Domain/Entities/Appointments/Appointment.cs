@@ -7,7 +7,7 @@ namespace DoctorFinder.Domain.Entities.Appointments
     public class Appointment : BaseEntity
     {
         public DateTime DateTime { get; set; }
-        public AppointmentStatus Status { get; set; } = AppointmentStatus.Pending;
+        public AppointmentStatus Status { get; set; }
 
         public string DoctorId { get; set; } = default!;
         public Doctor? Doctor { get; set; }

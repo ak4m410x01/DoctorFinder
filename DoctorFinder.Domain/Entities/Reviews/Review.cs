@@ -1,11 +1,12 @@
 ﻿using DoctorFinder.Domain.Common.Abstractions;
 using DoctorFinder.Domain.Entities.Accounts;
+using DoctorFinder.Domain.Enumerations;
 
 namespace DoctorFinder.Domain.Entities.Reviews
 {
     public class Review : BaseEntity
     {
-        public ushort Stars { get; set; }
+        public ReviewStars Stars { get; set; }
         public string? Comment { get; set; }
 
         public string PatientId { get; set; } = default!;

@@ -15,11 +15,16 @@ namespace DoctorFinder.Persistence.EntityConfigurations.Reviews
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Stars)
+                   .HasConversion<byte>()
                    .IsRequired();
 
             builder.Property(x => x.Comment)
                    .HasMaxLength(1_000)
                    .IsRequired(false);
+
+            builder.Property(x => x.CreatedAt)
+                   .HasDefaultValueSql("GETUTCDATE()")
+                   .ValueGeneratedOnAdd();
 
             // Config Relationship
             builder.HasOne(x => x.Doctor)

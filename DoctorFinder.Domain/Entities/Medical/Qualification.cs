@@ -7,7 +7,7 @@ namespace DoctorFinder.Domain.Entities.Medical
         public string Degree { get; set; } = default!;
         public string? Certification { get; set; }
         public string? Description { get; set; }
-        public int YearsOfExperience { get; set; }
+        public ushort YearsOfExperience { get; set; }
 
         public ICollection<DoctorQualifications>? Doctors { get; set; }
     }

@@ -42,7 +42,10 @@ namespace DoctorFinder.Persistence.EntityConfigurations.Accounts
                    .IsRequired(false);
 
             builder.Property(x => x.Gender)
-                   .HasConversion<ushort>();
+                   .HasConversion<byte>()
+                   .HasDefaultValue(Gender.UnSet)
+                   .HasSentinel(Gender.UnSet)
+                   .IsRequired(false);
 
             builder.Property(x => x.Location)
                    .IsRequired(false);
@@ -57,6 +60,10 @@ namespace DoctorFinder.Persistence.EntityConfigurations.Accounts
                 a.Property(x => x.Apartment).HasMaxLength(100).HasColumnName("Apartment").IsRequired();
                 a.Property(x => x.State).HasMaxLength(100).HasColumnName("State").IsRequired();
             });
+
+            builder.Property(x => x.CreatedAt)
+                   .HasDefaultValueSql("GETUTCDATE()")
+                   .ValueGeneratedOnAdd();
 
             // Config Inheritance as TPC
             builder.UseTptMappingStrategy();

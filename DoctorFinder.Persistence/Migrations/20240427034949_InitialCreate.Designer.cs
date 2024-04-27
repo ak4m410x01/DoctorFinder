@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoctorFinder.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240426050337_AddDoctorsAndPatientEntities")]
-    partial class AddDoctorsAndPatientEntities
+    [Migration("20240427034949_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,13 +25,76 @@ namespace DoctorFinder.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("DoctorFinder.Domain.Entities.Appointments.Appointment", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETUTCDATE()");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DoctorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("PatientId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<byte>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint")
+                        .HasDefaultValue((byte)1);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PatientId");
+
+                    b.HasIndex("DoctorId", "PatientId", "DateTime")
+                        .IsUnique();
+
+                    b.ToTable("Appointments", "Appointment");
+                });
+
+            modelBuilder.Entity("DoctorFinder.Domain.Entities.Appointments.WorkSchedule", b =>
+                {
+                    b.Property<string>("DoctorId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<byte>("DayOfWeek")
+                        .HasColumnType("tinyint");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETUTCDATE()");
+
+                    b.Property<TimeOnly>("EndTime")
+                        .HasColumnType("time");
+
+                    b.Property<TimeOnly>("StartTime")
+                        .HasColumnType("time");
+
+                    b.HasKey("DoctorId", "DayOfWeek");
+
+                    b.ToTable("WorkSchedules", "Appointment");
+                });
+
             modelBuilder.Entity("DoctorFinder.Domain.Entities.Medical.DoctorQualifications", b =>
                 {
                     b.Property<string>("DoctorId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("QualificationId")
-                        .HasColumnType("int");
+                    b.Property<long>("QualificationId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("DoctorId", "QualificationId");
 
@@ -42,15 +105,20 @@ namespace DoctorFinder.Persistence.Migrations
 
             modelBuilder.Entity("DoctorFinder.Domain.Entities.Medical.Qualification", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Certification")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETUTCDATE()");
 
                     b.Property<string>("Degree")
                         .IsRequired()
@@ -72,16 +140,21 @@ namespace DoctorFinder.Persistence.Migrations
 
             modelBuilder.Entity("DoctorFinder.Domain.Entities.Medical.Specialization", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Category")
                         .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETUTCDATE()");
 
                     b.Property<string>("Description")
                         .HasMaxLength(5000)
@@ -95,6 +168,44 @@ namespace DoctorFinder.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Specializations", "Medical");
+                });
+
+            modelBuilder.Entity("DoctorFinder.Domain.Entities.Reviews.Review", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Comment")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETUTCDATE()");
+
+                    b.Property<string>("DoctorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("PatientId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<byte>("Stars")
+                        .HasColumnType("tinyint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PatientId");
+
+                    b.HasIndex("DoctorId", "PatientId")
+                        .IsUnique();
+
+                    b.ToTable("Reviews", "Reviews");
                 });
 
             modelBuilder.Entity("DoctorFinder.Domain.Identity.ApplicationUser", b =>
@@ -112,6 +223,11 @@ namespace DoctorFinder.Persistence.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETUTCDATE()");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(256)
@@ -124,8 +240,10 @@ namespace DoctorFinder.Persistence.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("Gender")
-                        .HasColumnType("int");
+                    b.Property<byte?>("Gender")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint")
+                        .HasDefaultValue((byte)0);
 
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
@@ -324,8 +442,8 @@ namespace DoctorFinder.Persistence.Migrations
                 {
                     b.HasBaseType("DoctorFinder.Domain.Identity.ApplicationUser");
 
-                    b.Property<int>("SpecializationId")
-                        .HasColumnType("int");
+                    b.Property<long>("SpecializationId")
+                        .HasColumnType("bigint");
 
                     b.HasIndex("SpecializationId");
 
@@ -337,6 +455,36 @@ namespace DoctorFinder.Persistence.Migrations
                     b.HasBaseType("DoctorFinder.Domain.Identity.ApplicationUser");
 
                     b.ToTable("Patients", "Account");
+                });
+
+            modelBuilder.Entity("DoctorFinder.Domain.Entities.Appointments.Appointment", b =>
+                {
+                    b.HasOne("DoctorFinder.Domain.Entities.Accounts.Doctor", "Doctor")
+                        .WithMany("Appointments")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("DoctorFinder.Domain.Entities.Accounts.Patient", "Patient")
+                        .WithMany("Appointments")
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("DoctorFinder.Domain.Entities.Appointments.WorkSchedule", b =>
+                {
+                    b.HasOne("DoctorFinder.Domain.Entities.Accounts.Doctor", "Doctor")
+                        .WithMany("WorkSchedules")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
                 });
 
             modelBuilder.Entity("DoctorFinder.Domain.Entities.Medical.DoctorQualifications", b =>
@@ -356,6 +504,25 @@ namespace DoctorFinder.Persistence.Migrations
                     b.Navigation("Doctor");
 
                     b.Navigation("Qualification");
+                });
+
+            modelBuilder.Entity("DoctorFinder.Domain.Entities.Reviews.Review", b =>
+                {
+                    b.HasOne("DoctorFinder.Domain.Entities.Accounts.Doctor", "Doctor")
+                        .WithMany("Reviews")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("DoctorFinder.Domain.Entities.Accounts.Patient", "Patient")
+                        .WithMany("Reviews")
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Patient");
                 });
 
             modelBuilder.Entity("DoctorFinder.Domain.Identity.ApplicationUser", b =>
@@ -505,7 +672,20 @@ namespace DoctorFinder.Persistence.Migrations
 
             modelBuilder.Entity("DoctorFinder.Domain.Entities.Accounts.Doctor", b =>
                 {
+                    b.Navigation("Appointments");
+
                     b.Navigation("Qualifications");
+
+                    b.Navigation("Reviews");
+
+                    b.Navigation("WorkSchedules");
+                });
+
+            modelBuilder.Entity("DoctorFinder.Domain.Entities.Accounts.Patient", b =>
+                {
+                    b.Navigation("Appointments");
+
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }

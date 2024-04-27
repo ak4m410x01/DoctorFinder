@@ -15,8 +15,12 @@ namespace DoctorFinder.Persistence.EntityConfigurations.Appointments
             builder.HasKey(x => new { x.DoctorId, x.DayOfWeek });
 
             builder.Property(x => x.DayOfWeek)
-                   .HasConversion<ushort>()
+                   .HasConversion<byte>()
                    .IsRequired();
+
+            builder.Property(x => x.CreatedAt)
+                   .HasDefaultValueSql("GETUTCDATE()")
+                   .ValueGeneratedOnAdd();
 
             // Config Relationship
             builder.HasOne(x => x.Doctor)

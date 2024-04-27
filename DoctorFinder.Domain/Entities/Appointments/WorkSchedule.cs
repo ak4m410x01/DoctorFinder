@@ -9,6 +9,6 @@ namespace DoctorFinder.Domain.Entities.Appointments
         public TimeOnly EndTime { get; set; }
         public string DoctorId { get; set; } = default!;
         public Doctor? Doctor { get; set; }
-        public DateTime CreatedAt { get; } = DateTime.Now;
+        public DateTime CreatedAt { get; }
     }
 }

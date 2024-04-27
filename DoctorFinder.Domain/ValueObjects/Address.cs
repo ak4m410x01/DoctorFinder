@@ -23,7 +23,7 @@ namespace DoctorFinder.Domain.ValueObjects
         public string Apartment { get; private set; }
         public string State { get; private set; }
 
-        protected override IEnumerable<object> GetObjectValues()
+        protected override IEnumerable<object> GetEqualityComponents()
         {
             return [Country, City, PostalCode, Street, Floor, Apartment, State];
         }

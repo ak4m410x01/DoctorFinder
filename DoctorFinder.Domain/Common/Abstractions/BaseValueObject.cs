@@ -2,36 +2,36 @@
 {
     public abstract class BaseValueObject
     {
-        protected abstract IEnumerable<object> GetObjectValues();
+        protected abstract IEnumerable<object> GetEqualityComponents();
 
         public override bool Equals(object? obj)
         {
-            if (obj is null || obj.GetType() != GetType())
+            if (obj == null || obj.GetType() != GetType())
                 return false;
 
             BaseValueObject other = (BaseValueObject)obj;
 
-            return GetObjectValues().SequenceEqual(other.GetObjectValues());
+            return GetEqualityComponents()
+                  .SequenceEqual(other.GetEqualityComponents());
         }
 
         public override int GetHashCode()
         {
-            return GetObjectValues()
-                  .Select(x => x is null ? 0 : x.GetHashCode())
-                  .Aggregate((x, y) => x ^ y);
+            return GetEqualityComponents()
+                  .Aggregate(17, (current, obj) => current * 23 + (obj?.GetHashCode() ?? 0));
         }
 
-        public static bool operator ==(BaseValueObject objA, BaseValueObject objB)
+        public static bool operator ==(BaseValueObject obj1, BaseValueObject obj2)
         {
-            if (objA is null)
-                return objB is null;
+            if (obj1 is null)
+                return obj2 is null;
 
-            return objA.Equals(objB);
+            return obj1.Equals(obj2);
         }
 
-        public static bool operator !=(BaseValueObject left, BaseValueObject right)
+        public static bool operator !=(BaseValueObject obj1, BaseValueObject obj2)
         {
-            return !(left == right);
+            return !(obj1 == obj2);
         }
     }
 }
