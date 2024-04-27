@@ -9,11 +9,11 @@ namespace DoctorFinder.Presentation.Extensions.Swagger.ServiceCollection
 {
     public static class SwaggerGenServiceCollection
     {
-        public static IServiceCollection AddSwaggerGenOptions(this IServiceCollection services)
+        public static IServiceCollection AddSwaggerGenOptions(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddSwaggerGen(swagger =>
             {
-                swagger.AddSwaggerDocOptions()
+                swagger.AddSwaggerDocOptions(configuration)
                        .AddSecurityDefinitionOptions()
                        .AddSecurityRequirementOptions();
             });

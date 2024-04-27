@@ -10,24 +10,25 @@ namespace DoctorFinder.Presentation.Extensions.Swagger.Options
 {
     public static class SwaggerDocOptions
     {
-        public static SwaggerGenOptions AddSwaggerDocOptions(this SwaggerGenOptions swagger)
+        public static SwaggerGenOptions AddSwaggerDocOptions(this SwaggerGenOptions swagger, IConfiguration configuration)
         {
             swagger.SwaggerDoc("v1", new OpenApiInfo
             {
-                Title = "Doctor Finder API",
-                Version = "v1",
-                Description = "Doctor Finder connects patients and doctors for seamless appointments. Patients search for doctors by specialty and location. Availability is based on the doctor's work schedule, ensuring appointments during working hours. Book appointments, manage them easily, and pay online or offline - all within this secure platform.",
+                Title = configuration.GetValue<string>("SwaggerOptions:SwaggerDoc:OpenApiInfo:Title"),
+                Version = configuration.GetValue<string>("SwaggerOptions:SwaggerDoc:OpenApiInfo:Version"),
+                Description = configuration.GetValue<string>("SwaggerOptions:SwaggerDoc:OpenApiInfo:Description"),
 
                 License = new OpenApiLicense
                 {
-                    Name = "GNU General Public License v3.0",
-                    Url = new Uri("https://github.com/ak4m410x01/DoctorFinder/blob/develop/LICENSE")
+                    Name = configuration.GetValue<string>("SwaggerOptions:SwaggerDoc:OpenApiInfo:OpenApiLicense:Name"),
+                    Url = new Uri(configuration.GetValue<string>("SwaggerOptions:SwaggerDoc:OpenApiInfo:OpenApiLicense:Url") ?? "")
                 },
+
                 Contact = new OpenApiContact
                 {
-                    Name = "Abdullah Kamal",
-                    Email = "abdullah.kamal0x01@gmail.com",
-                    Url = new Uri("https://ak4m410x01.vercel.app")
+                    Name = configuration.GetValue<string>("SwaggerOptions:SwaggerDoc:OpenApiInfo:OpenApiContact:Name"),
+                    Email = configuration.GetValue<string>("SwaggerOptions:SwaggerDoc:OpenApiInfo:OpenApiContact:Email"),
+                    Url = new Uri(configuration.GetValue<string>("SwaggerOptions:SwaggerDoc:OpenApiInfo:OpenApiContact:Url") ?? "")
                 },
             });
 

@@ -33,7 +33,7 @@ namespace DoctorFinder.Presentation
 
             #region Configuring Swagger/OpenAPI
 
-            builder.Services.AddSwagger();
+            builder.Services.AddSwagger(builder.Configuration);
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
