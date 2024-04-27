@@ -1,9 +1,7 @@
 ﻿#region Using Directive Namespaces
 
-using DoctorFinder.Domain.Identity;
-using DoctorFinder.Persistence.Contexts;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using DoctorFinder.Persistence.Extensions.Contexts;
+using DoctorFinder.Persistence.Extensions.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,38 +16,8 @@ namespace DoctorFinder.Persistence.Extensions
 
         public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext(configuration);
-
-            return services;
-        }
-
-        #endregion
-
-        #region AddDbContext
-
-        public static IServiceCollection AddDbContext(this IServiceCollection services, IConfiguration configuration)
-        {
-            // Get Connection String From appsettings.json
-            string? connectionString = configuration.GetConnectionString("LocalDevelopmentDbConnection");
-
-            // Add Application Db Context
-            services.AddDbContext<ApplicationDbContext>(options =>
-                        options.UseSqlServer(connectionString, builder =>
-                                builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
-
-            return services;
-        }
-
-        #endregion
-
-        #region AddIdentityConfiguration
-
-        public static IServiceCollection AddIdentityConfiguration(this IServiceCollection services)
-        {
-            // Identity Configuration
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                    .AddEntityFrameworkStores<ApplicationDbContext>()
-                    .AddDefaultTokenProviders();
+            services.AddDbContext(configuration)
+                    .AddIdentity();
 
             return services;
         }
