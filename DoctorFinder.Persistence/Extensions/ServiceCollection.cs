@@ -2,6 +2,7 @@
 
 using DoctorFinder.Persistence.Extensions.Contexts;
 using DoctorFinder.Persistence.Extensions.Identity;
+using DoctorFinder.Persistence.Extensions.Repositories.Medical;
 using DoctorFinder.Persistence.Extensions.UnitOfWork;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,7 +20,8 @@ namespace DoctorFinder.Persistence.Extensions
         {
             services.AddDbContext(configuration)
                     .AddIdentity()
-                    .AddUnitOfWork();
+                    .AddUnitOfWork()
+                    .AddSpecializationRepository();
 
             return services;
         }

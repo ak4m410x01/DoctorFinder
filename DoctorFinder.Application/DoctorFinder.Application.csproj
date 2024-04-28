@@ -13,7 +13,6 @@
 		<Folder Include="Common\Exceptions\" />
 		<Folder Include="Contracts\Interfaces\Media\" />
 		<Folder Include="Contracts\Interfaces\Authentication\" />
-		<Folder Include="Contracts\Interfaces\Repositories\Entities\" />
 		<Folder Include="Contracts\Abstractions\" />
 		<Folder Include="DTOs\" />
 		<Folder Include="Features\Doctor\CommandHandlers\Add\" />
