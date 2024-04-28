@@ -14,7 +14,6 @@
 		<Folder Include="Contracts\Interfaces\Media\" />
 		<Folder Include="Contracts\Interfaces\Authentication\" />
 		<Folder Include="Contracts\Interfaces\Repositories\Entities\" />
-		<Folder Include="Contracts\Interfaces\Repositories\Base\" />
 		<Folder Include="Contracts\Interfaces\UnitOfWork\" />
 		<Folder Include="Contracts\Abstractions\" />
 		<Folder Include="DTOs\" />
@@ -42,6 +41,10 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\DoctorFinder.Domain\DoctorFinder.Domain.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -10,7 +10,6 @@
 		<Folder Include="Contexts\" />
 		<Folder Include="DataSeeding\" />
 		<Folder Include="Repositories\Entities\" />
-		<Folder Include="Repositories\Base\" />
 		<Folder Include="UnitOfWork\" />
 	</ItemGroup>
 
@@ -25,6 +24,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\DoctorFinder.Application\DoctorFinder.Application.csproj" />
 		<ProjectReference Include="..\DoctorFinder.Domain\DoctorFinder.Domain.csproj" />
 	</ItemGroup>
 
