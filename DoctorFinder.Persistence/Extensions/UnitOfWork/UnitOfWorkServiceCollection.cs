@@ -13,7 +13,7 @@ namespace DoctorFinder.Persistence.Extensions.UnitOfWork
     {
         public static IServiceCollection AddUnitOfWork(this IServiceCollection services)
         {
-            services.AddTransient<UnitOfWorkContract.IUnitOfWork, UnitOfWorkImplementation.UnitOfWork>();
+            services.AddScoped<UnitOfWorkContract.IUnitOfWork, UnitOfWorkImplementation.UnitOfWork>();
             return services;
         }
     }
