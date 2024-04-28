@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoctorFinder.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240427034949_InitialCreate")]
+    [Migration("20240428024716_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -33,6 +33,9 @@ namespace DoctorFinder.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<long>("AppointmentTypeId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
@@ -40,6 +43,9 @@ namespace DoctorFinder.Persistence.Migrations
 
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("decimal(5,2)");
 
                     b.Property<string>("DoctorId")
                         .IsRequired()
@@ -56,12 +62,39 @@ namespace DoctorFinder.Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AppointmentTypeId");
+
                     b.HasIndex("PatientId");
 
                     b.HasIndex("DoctorId", "PatientId", "DateTime")
                         .IsUnique();
 
                     b.ToTable("Appointments", "Appointment");
+                });
+
+            modelBuilder.Entity("DoctorFinder.Domain.Entities.Appointments.AppointmentType", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(5,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppointmentTypes", "Appointment");
                 });
 
             modelBuilder.Entity("DoctorFinder.Domain.Entities.Appointments.WorkSchedule", b =>
@@ -459,6 +492,12 @@ namespace DoctorFinder.Persistence.Migrations
 
             modelBuilder.Entity("DoctorFinder.Domain.Entities.Appointments.Appointment", b =>
                 {
+                    b.HasOne("DoctorFinder.Domain.Entities.Appointments.AppointmentType", "AppointmentType")
+                        .WithMany("Appointments")
+                        .HasForeignKey("AppointmentTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("DoctorFinder.Domain.Entities.Accounts.Doctor", "Doctor")
                         .WithMany("Appointments")
                         .HasForeignKey("DoctorId")
@@ -470,6 +509,8 @@ namespace DoctorFinder.Persistence.Migrations
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("AppointmentType");
 
                     b.Navigation("Doctor");
 
@@ -658,6 +699,11 @@ namespace DoctorFinder.Persistence.Migrations
                         .HasForeignKey("DoctorFinder.Domain.Entities.Accounts.Patient", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("DoctorFinder.Domain.Entities.Appointments.AppointmentType", b =>
+                {
+                    b.Navigation("Appointments");
                 });
 
             modelBuilder.Entity("DoctorFinder.Domain.Entities.Medical.Qualification", b =>

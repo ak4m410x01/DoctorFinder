@@ -27,6 +27,22 @@ namespace DoctorFinder.Persistence.Migrations
                 name: "Security");
 
             migrationBuilder.CreateTable(
+                name: "AppointmentTypes",
+                schema: "Appointment",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true),
+                    Price = table.Column<decimal>(type: "decimal(5,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppointmentTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Qualifications",
                 schema: "Medical",
                 columns: table => new
@@ -337,13 +353,22 @@ namespace DoctorFinder.Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: (byte)1),
+                    Discount = table.Column<decimal>(type: "decimal(5,2)", nullable: false),
                     DoctorId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     PatientId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AppointmentTypeId = table.Column<long>(type: "bigint", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Appointments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Appointments_AppointmentTypes_AppointmentTypeId",
+                        column: x => x.AppointmentTypeId,
+                        principalSchema: "Appointment",
+                        principalTable: "AppointmentTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Appointments_Doctors_DoctorId",
                         column: x => x.DoctorId,
@@ -391,6 +416,12 @@ namespace DoctorFinder.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Appointments_AppointmentTypeId",
+                schema: "Appointment",
+                table: "Appointments",
+                column: "AppointmentTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Appointments_DoctorId_PatientId_DateTime",
@@ -514,6 +545,10 @@ namespace DoctorFinder.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "WorkSchedules",
+                schema: "Appointment");
+
+            migrationBuilder.DropTable(
+                name: "AppointmentTypes",
                 schema: "Appointment");
 
             migrationBuilder.DropTable(

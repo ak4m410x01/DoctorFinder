@@ -38,6 +38,7 @@ namespace DoctorFinder.Persistence.Contexts
         // Appointment Entities
         public DbSet<WorkSchedule> WorkSchedules { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<AppointmentType> AppointmentTypes { get; set; }
 
         // Review Entity
         public DbSet<Review> Reviews { get; set; }

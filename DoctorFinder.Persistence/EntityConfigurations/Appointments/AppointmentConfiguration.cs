@@ -34,6 +34,9 @@ namespace DoctorFinder.Persistence.EntityConfigurations.Appointments
                    .HasDefaultValue(AppointmentStatus.Pending)
                    .HasSentinel(AppointmentStatus.UnSet);
 
+            builder.Property(x => x.Discount)
+                   .HasColumnType("decimal(5,2)");
+
             builder.Property(x => x.CreatedAt)
                    .HasDefaultValueSql("GETUTCDATE()")
                    .ValueGeneratedOnAdd();
@@ -56,6 +59,12 @@ namespace DoctorFinder.Persistence.EntityConfigurations.Appointments
                    .HasForeignKey(x => x.PatientId)
                    .IsRequired()
                    .OnDelete(DeleteBehavior.Restrict);
+
+            // Appointment => Appointment Type
+            builder.HasOne(x => x.AppointmentType)
+                   .WithMany(y => y.Appointments)
+                   .HasForeignKey(x => x.AppointmentTypeId)
+                   .IsRequired();
 
             #endregion
 

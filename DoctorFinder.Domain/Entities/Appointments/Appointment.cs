@@ -15,6 +15,7 @@ namespace DoctorFinder.Domain.Entities.Appointments
 
         public DateTime DateTime { get; set; }
         public AppointmentStatus Status { get; set; }
+        public decimal Discount { get; set; }
 
         #endregion
 
@@ -29,6 +30,13 @@ namespace DoctorFinder.Domain.Entities.Appointments
 
         public string PatientId { get; set; } = default!;
         public Patient? Patient { get; set; }
+
+        #endregion
+
+        #region Patient Relationship
+
+        public uint AppointmentTypeId { get; set; }
+        public AppointmentType? AppointmentType { get; set; }
 
         #endregion
     }

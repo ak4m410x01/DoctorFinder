@@ -9,8 +9,9 @@
 	<ItemGroup>
 		<Folder Include="Contexts\" />
 		<Folder Include="DataSeeding\" />
+		<Folder Include="Repositories\Entities\" />
+		<Folder Include="Repositories\Base\" />
 		<Folder Include="UnitOfWork\" />
-		<Folder Include="Repositories\" />
 	</ItemGroup>
 
 	<ItemGroup>
