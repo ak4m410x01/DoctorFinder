@@ -4,7 +4,7 @@ using DoctorFinder.Application.Contracts.Interfaces.Repositories.Entities.Medica
 using DoctorFinder.Persistence.Repositories.Entities.Medical;
 using Microsoft.Extensions.DependencyInjection;
 
-#region
+#endregion
 
 namespace DoctorFinder.Persistence.Extensions.Repositories.Medical
 {
